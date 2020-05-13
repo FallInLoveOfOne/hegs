@@ -1,7 +1,7 @@
 package GQJ.home.hegs.love.string;
 
 /**
- * 字符串截取测试
+ * 字符串截取说明
  */
 public class sub {
 
