@@ -3,7 +3,7 @@ package GQJ.home.hegs.love.string;
 /**
  * 字符串截取说明
  */
-public class sub {
+public class Sub {
 
     public static void main(String[] args) {
         // 字符串初始角标为：0
