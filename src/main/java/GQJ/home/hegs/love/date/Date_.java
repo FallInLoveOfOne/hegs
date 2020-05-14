@@ -1,5 +1,6 @@
 package GQJ.home.hegs.love.date;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -37,8 +38,11 @@ public class Date_ {
         // 单天时间，有日期
         LocalDateTime localDateTime = LocalDateTime.now();
         String da = localDateTime.format(DateTimeFormatter.BASIC_ISO_DATE);// 20200514
-        String db = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+        String db = localDateTime.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm:ss"));
         System.out.println(da);
         System.out.println(db);
+        // 时间戳
+        Instant instant = Instant.now();
+        System.out.println(instant.getEpochSecond());
     }
 }
