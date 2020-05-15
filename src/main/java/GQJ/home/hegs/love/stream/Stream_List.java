@@ -1,9 +1,9 @@
 package GQJ.home.hegs.love.stream;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -17,27 +17,64 @@ public class Stream_List {
 
     public static void main(String[] args) {
 
-        // --------------元数据
-        List<ObVO> list = new ArrayList();
-        list.add(new ObVO("1","1-"));
-        list.add(new ObVO("2","2-"));
-        list.add(new ObVO("3","3-"));
-        list.add(new ObVO("4","4-"));
+        List<ObVO> source = new ArrayList<>();
+        source.add(new ObVO("1", "1-1",1));
+        source.add(new ObVO("2", "2-2",2));
+        source.add(new ObVO("3", "3-3",3));
+        source.add(new ObVO("4", "4-4",4));
 
-        // --------------替换元素属性
-        list.stream().filter(bean->{
-            // id为1元素name变为1-1
-            if("1".equals(bean.getId())){
-                bean.setName("1-1");
+        updateListObj(source);// 更新list中某个元素属性
+
+        filterList(source);
+
+        sortList(source);
+    }
+
+    public static void forEachList(List<ObVO> source) {
+        source.forEach(bean -> System.out.println(bean.getName()));
+    }
+
+    public static List<ObVO> updateListObj(List<ObVO> source) {
+        System.out.println("===================改变元素=====================");
+        source.parallelStream().filter(bean -> {
+            if ("1".equals(bean.getId())) {
+                bean.setName("1-update");
             }
             return true;
         }).collect(Collectors.toList());
-        // END
 
-        // --------------遍历元素
-        list.forEach(bean->{
-            System.out.println(bean.getName());
+        forEachList(source);
+
+        System.out.println("===================改变元素=====================");
+        return source;
+    }
+
+    public static List<ObVO> filterList(List<ObVO> source) {
+        System.out.println("===================过滤元素=====================");
+        source = source.stream().filter(bean -> "1".equals(bean.getId())).collect(Collectors.toList());
+        forEachList(source);
+        System.out.println("===================过滤元素=====================");
+        return source;
+    }
+
+    public static List<ObVO> sortList(List<ObVO> source){
+        Collections.sort(source);
+        forEachList(source);
+        Collections.sort(source, new Comparator<ObVO>() {
+            @Override
+            public int compare(ObVO o1, ObVO o2) {
+                // 与重写对象方法相反
+                int n = 1;
+                System.out.println("排序标记值："+n);
+                return n;
+            }
         });
-        // END
+        forEachList(source);
+        System.out.println("===================排序=====================");
+        // 排序无效！
+        source = source.stream().sorted(Comparator.comparing(ObVO::getYearOld)).collect(Collectors.toList());
+        forEachList(source);
+        System.out.println("===================排序=====================");
+        return source;
     }
 }
