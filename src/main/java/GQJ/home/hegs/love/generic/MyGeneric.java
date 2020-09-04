@@ -117,11 +117,17 @@ public class MyGeneric {
         System.out.println("MyGeneric static{}" + MyGeneric.class.getName());
     }
 
+    /**
+     * 非静态内部的一些特点
+     */
     public class NonStaticClass {
         // 非静态内部了无法定义静态块，以下无法编译
         //static {}
         // 非静态内部类无法定义静态方法，以下无法编译
         //public static void tt(){}
+        // 必须使用final，方可定义static属性
+        public final static String X_X = "X_X";
+
         public NonStaticClass() throws Exception {
             //【非静态】内部类对象依赖外部类对象创建，所以都是可使用的
             System.out.println(outFiled);
