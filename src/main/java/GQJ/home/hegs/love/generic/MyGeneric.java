@@ -26,6 +26,21 @@ public class MyGeneric {
         say.genericMethod(women);
         //由于泛型方法限制了参数的的类型，以下无法通过编译
         //say.genericMethod(new Object());
+        // 泛型的继承
+        ManSay manSay = new ManSay();
+        manSay.setT((Man) man).print();
+
+        WomenSay womenSay = new WomenSay();
+        womenSay.setT(man).print();
+        womenSay.setT(women).print();
+    }
+
+    public static class ManSay extends Say<Man> {
+
+    }
+
+    public static class WomenSay extends Say {
+
     }
 
     /**
