@@ -66,15 +66,19 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
         System.out.println(Child.class.toGenericString());
         System.out.println(Child.class.getCanonicalName());
         try {
+            // 多实现，所以是多接口
             Class<?>[] ins = Child.class.getInterfaces();
             for (Class in : ins) {
                 System.out.println("Child实现的接口:" + in.getName());
                 Field inFild = in.getDeclaredField("I_PARENT_P");
                 System.out.println("通过Field获取接口的属性值:" + inFild.get(in));
-                // 未接口常量赋值不可
+                // 未接口常量赋值不可(可！但是需要设置忽略修改符)
                 //inFild.setAccessible(true);
                 //inFild.set(null, "卧槽");
             }
+            // 单继承，所以父类只有一个
+            Class<?> sucls = Child.class.getSuperclass();
+            System.out.println("Child实现的父类:" + sucls.getName());
             System.out.println(Child.I_PARENT_P);
             // newInstance()无参数构函数创建对象
             Object ob = child.getClass().newInstance();
