@@ -100,6 +100,7 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
             System.out.println("childCons-flag:" + childCons.getFlag());
             Field fField = Child.class.getDeclaredField("F_V");
             System.out.println("F_V属性修饰符:" + Modifier.toString(fField.getModifiers()));
+            System.out.println(fField.get(childCons) + "---" + fField.get(null));
             //fField.setAccessible(true);
             //fField.set(null,"静态常量赋值");
             //System.out.println(Child.F_V);
