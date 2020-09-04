@@ -7,10 +7,28 @@ package GQJ.home.hegs.love.generic;
  * @Date: 2020/9/4
  */
 public class TPF {
+    /**
+     * 总结：
+     * <? extends T>允许调用读方法T get()获取T的引用，但不允许调用写方法set(T)传入T的引用（传入null除外）；
+     * <p>
+     * <? super T>允许调用写方法set(T)传入T的引用，但不允许调用读方法T get()获取T的引用（获取Object除外）。
+     * <p>
+     * 一个是允许读不允许写，另一个是允许写不允许读
+     * <p>
+     * <?>通配符有一个独特的特点，就是：Pair<?>是所有Pair<T>的超类
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Pair<Integer> p = new Pair<>(123, 456);
         int n = add(p);
         System.out.println(n);
+        //<?>通配符有一个独特的特点，就是：Pair<?>是所有Pair<T>的超类
+        Pair<?> pa = p;
+        System.out.println(pa.first + "--" + pa.last);
+        Pair<Long> pl = new Pair<>(100L, 200L);
+        pa = pl;
+        System.out.println(pa.first + "--" + pa.last);
     }
 
     /**
