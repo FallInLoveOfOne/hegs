@@ -2,7 +2,7 @@ package GQJ.home.hegs.love.cls;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * @Author: sh
@@ -22,6 +22,8 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
     //}
     //
     //public String name;
+
+    public static final String F_V = "fv";
 
     public Child() {
         //super();
@@ -64,6 +66,16 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
         System.out.println(Child.class.toGenericString());
         System.out.println(Child.class.getCanonicalName());
         try {
+            Class<?>[] ins = Child.class.getInterfaces();
+            for (Class in : ins) {
+                System.out.println("Child实现的接口:" + in.getName());
+                Field inFild = in.getDeclaredField("I_PARENT_P");
+                System.out.println("通过Field获取接口的属性值:" + inFild.get(in));
+                // 未接口常量赋值不可
+                //inFild.setAccessible(true);
+                //inFild.set(null, "卧槽");
+            }
+            System.out.println(Child.I_PARENT_P);
             // newInstance()无参数构函数创建对象
             Object ob = child.getClass().newInstance();
             Child fsChild = (Child) ob;
@@ -74,12 +86,18 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
             Constructor cons = Child.class.getDeclaredConstructor(String.class);
             Child childCons = (Child) cons.newInstance("hava one arg");
             System.out.println("childCons-name:" + childCons.getName());
-            Field nameField = childCons.getClass().getDeclaredField("name");
-            nameField.set(childCons, "通过Filed赋值");
-            System.out.println("childCons-name:" + childCons.getName());
-            Method nameMethod = Child.class.getDeclaredMethod("setFlag", String.class);
-            nameMethod.invoke(childCons, "通过Method赋值");
-            System.out.println("childCons-flag:" + childCons.getFlag());
+            // 父类的属性、方法此方式没能获取,需要通过父类clss反射获取
+            //Field nameField = childCons.getClass().getDeclaredField("name");
+            //nameField.set(childCons, "通过Filed赋值");
+            //System.out.println("childCons-name:" + childCons.getName());
+            //Method nameMethod = Child.class.getDeclaredMethod("setFlag", String.class);
+            //nameMethod.invoke(childCons, "通过Method赋值");
+            //System.out.println("childCons-flag:" + childCons.getFlag());
+            Field fField = Child.class.getDeclaredField("F_V");
+            System.out.println("F_V属性修饰符:" + Modifier.toString(fField.getModifiers()));
+            //fField.setAccessible(true);
+            //fField.set(null,"静态常量赋值");
+            //System.out.println(Child.F_V);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
