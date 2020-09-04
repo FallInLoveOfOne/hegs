@@ -6,7 +6,7 @@ package GQJ.home.hegs.love.cls;
  * @Version:
  * @Date: 2020/9/4
  */
-public abstract class Parent implements IParent {
+public abstract class Parent /*implements IParent*/ {
     public String getName() {
         return name;
     }
@@ -27,6 +27,7 @@ public abstract class Parent implements IParent {
 
     private String flag;
 
+    protected String sex = "man";
 
     public Parent() {
         this.name = "parent";
@@ -38,8 +39,9 @@ public abstract class Parent implements IParent {
         System.out.println("parent-static");
     }
 
-    @Override
+    //@Override
     public void say() {
+        System.out.println("say this name:" + this.getName());
         System.out.println("parent say hello!");
     }
 }
