@@ -8,5 +8,8 @@ package GQJ.home.hegs.love.cls;
 public interface IParent {
     String I_PARENT_P = "interface_PARENT_P";
 
+    /**
+     * say
+     */
     void say();
 }

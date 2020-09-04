@@ -46,14 +46,18 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
     public static void main(String[] args) {
         Child child = new Child();
         // 子类可以继承父类的public、protected的方法及属性，但是private的不能继承
-        System.out.println(child.getName());// child
-        System.out.println(child.getFlag());// parent flag
-        System.out.println(child.sex);// man
+        // child
+        System.out.println(child.getName());
+        // parent flag
+        System.out.println(child.getFlag());
+        // man
+        System.out.println(child.sex);
         // 无法访问parent-private flag属性
         // System.out.println(child.flag);
         // Parent没有实现接口，但是Child实现了接口，对于接口方法say，相当于Parent代替Child实现了IParent的say方法
         // 事实证明this指向的是当前类的当前对象parent
-        child.say();// parent say hello!
+        // parent say hello!
+        child.say();
         System.out.println(Child.I_PARENT_P);
         System.out.println("======================// 反射 ST=================");
         System.out.println(child.getClass().getClassLoader());
