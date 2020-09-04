@@ -2,6 +2,7 @@ package GQJ.home.hegs.love.cls;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
@@ -91,12 +92,12 @@ public class Child extends Parent implements IParent {// 虽然Parent已经实�
             Child childCons = (Child) cons.newInstance("hava one arg");
             System.out.println("childCons-name:" + childCons.getName());
             // 父类的属性、方法此方式没能获取,需要通过父类clss反射获取
-            //Field nameField = childCons.getClass().getDeclaredField("name");
-            //nameField.set(childCons, "通过Filed赋值");
-            //System.out.println("childCons-name:" + childCons.getName());
-            //Method nameMethod = Child.class.getDeclaredMethod("setFlag", String.class);
-            //nameMethod.invoke(childCons, "通过Method赋值");
-            //System.out.println("childCons-flag:" + childCons.getFlag());
+            Field nameField = childCons.getClass().getSuperclass().getDeclaredField("name");
+            nameField.set(childCons, "通过Filed赋值");
+            System.out.println("childCons-name:" + childCons.getName());
+            Method nameMethod = Child.class.getSuperclass().getDeclaredMethod("setFlag", String.class);
+            nameMethod.invoke(childCons, "通过Method赋值");
+            System.out.println("childCons-flag:" + childCons.getFlag());
             Field fField = Child.class.getDeclaredField("F_V");
             System.out.println("F_V属性修饰符:" + Modifier.toString(fField.getModifiers()));
             //fField.setAccessible(true);
