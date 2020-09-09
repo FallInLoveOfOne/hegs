@@ -1,9 +1,10 @@
 package GQJ.home.hegs.love.io;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * @Author: sh
@@ -59,6 +60,8 @@ public class Main {
 
         loopDir("C:/Users/dhht/Desktop/test-lishi");
 
+        readZip("C:/Users/dhht/Desktop/test-lishi/xx.zip");
+
 
     }
 
@@ -78,6 +81,44 @@ public class Main {
                 }
                 if (file.isFile()) {
                     logger.info(file.getParent() + File.separator + file.getName());
+                }
+            }
+        }
+    }
+
+    public static void readStream(String file) throws IOException {
+        Logger logger = Logger.getGlobal();
+        File tar = new File(file);
+        if (!tar.exists()) {
+            return;
+        }
+        // 编译器可自动关闭fileInputStream（需实现java.lang.AutoCloseable接口）
+        try (InputStream inputStream = new FileInputStream(tar)) {
+            // 每次读取到缓冲区，效率较高
+            byte[] buffer = new byte[1024];
+            int flag = 0;
+            while ((flag = inputStream.read(buffer)) != -1) {
+                logger.info(flag + "");
+            }
+        }
+    }
+
+    public static void readZip(String file) throws IOException {
+        Logger logger = Logger.getGlobal();
+        File tar = new File(file);
+        if (!tar.exists()) {
+            return;
+        }
+        try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(tar))) {
+            ZipEntry entry;
+            byte[] buffer = new byte[1024];
+            while ((entry = zipInputStream.getNextEntry()) != null) {
+                if (!entry.isDirectory()) {
+                    while (zipInputStream.read(buffer) != -1) {
+                        logger.info(entry.getName());
+                        logger.info(new String(buffer, "UTF-8"));
+                    }
+
                 }
             }
         }
