@@ -1,0 +1,86 @@
+package GQJ.home.hegs.love.io;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.logging.Logger;
+
+/**
+ * @Author: sh
+ * @Description:
+ * @Version:
+ * @Date: 2020/9/9
+ */
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Logger logger = Logger.getGlobal();
+        // /D:/idea-study/hegs/target/classes/
+        logger.info(Main.class.getResource("/").getPath());
+        // /D:/idea-study/hegs/target/classes/GQJ/home/hegs/love/io/
+        logger.info(Main.class.getResource("").getPath());
+        File file = new File("");
+        logger.info(file.getPath());
+        // D:\idea-study\hegs
+        logger.info(file.getAbsolutePath());
+        // D:\idea-study\hegs
+        logger.info(file.getCanonicalPath());
+        File f = new File(File.separator + "2020" + File.separator + "0909");
+        logger.info("f.exists():" + f.exists());
+        // D:\2020\0909
+        logger.info(f.getAbsolutePath());
+        // 判断该File对象是否是一个已存在的磁盘目录
+        logger.info("f.isDirectory():" + f.isDirectory());
+        // true
+        logger.info(f.mkdirs() + "");
+        File fi = new File(File.separator + "2020" + File.separator + "0909" + File.separator + "za.jpg");
+        logger.info(fi.getAbsolutePath());
+        logger.info("fi.exists():" + fi.exists());
+        // 判断该File对象是否是一个已存在磁盘的文件
+        logger.info("fi.isFile():" + fi.isFile());
+        logger.info(fi.createNewFile() + "");
+
+        File dir = new File("D:/dingding");
+        // 子目录名与文件名
+        String[] files = dir.list();
+        Arrays.asList(files).forEach(bean -> {
+            logger.info("dir.list()-" + bean);
+        });
+        // 子目录名与文件名,FilenameFilter()过滤器
+        File[] fs = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".exe");
+            }
+        });
+        Arrays.asList(fs).forEach(bean -> {
+            logger.info("dir.listFiles()-" + bean.getName());
+        });
+
+        loopDir("C:/Users/dhht/Desktop/test-lishi");
+
+
+    }
+
+    // 递归遍历目录文件
+    public static void loopDir(String dir) throws Exception {
+        Logger logger = Logger.getGlobal();
+        File fileDir = new File(dir);
+        if (!fileDir.exists()) {
+            return;
+        }
+        File[] fileArray = fileDir.listFiles();
+        if (fileArray.length > 0) {
+            for (File file : fileArray) {
+                if (file.isDirectory()) {
+                    logger.info(file.getParent() + File.separator);
+                    loopDir(file.getCanonicalPath());
+                }
+                if (file.isFile()) {
+                    logger.info(file.getParent() + File.separator + file.getName());
+                }
+            }
+        }
+    }
+
+}
