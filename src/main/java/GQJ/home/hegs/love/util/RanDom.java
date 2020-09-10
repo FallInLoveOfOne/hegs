@@ -84,7 +84,6 @@ public class RanDom {
         });
         System.out.println("=========" + order + "=========");
         order = (order + 1);
-        rand(sources);
         return result;
     }
 }
