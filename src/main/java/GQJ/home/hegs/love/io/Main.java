@@ -2,6 +2,7 @@ package GQJ.home.hegs.love.io;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -14,8 +15,9 @@ import java.util.zip.ZipInputStream;
  */
 public class Main {
 
+    static Logger logger = Logger.getGlobal();
+
     public static void main(String[] args) throws Exception {
-        Logger logger = Logger.getGlobal();
         // /D:/idea-study/hegs/target/classes/
         logger.info(Main.class.getResource("/").getPath());
         // /D:/idea-study/hegs/target/classes/GQJ/home/hegs/love/io/
@@ -62,12 +64,13 @@ public class Main {
 
         readZip("C:/Users/dhht/Desktop/test-lishi/xx.zip");
 
+        loadProper();
+
 
     }
 
     // 递归遍历目录文件
     public static void loopDir(String dir) throws Exception {
-        Logger logger = Logger.getGlobal();
         File fileDir = new File(dir);
         if (!fileDir.exists()) {
             return;
@@ -87,7 +90,6 @@ public class Main {
     }
 
     public static void readStream(String file) throws IOException {
-        Logger logger = Logger.getGlobal();
         File tar = new File(file);
         if (!tar.exists()) {
             return;
@@ -104,7 +106,6 @@ public class Main {
     }
 
     public static void readZip(String file) throws IOException {
-        Logger logger = Logger.getGlobal();
         File tar = new File(file);
         if (!tar.exists()) {
             return;
@@ -114,14 +115,25 @@ public class Main {
             byte[] buffer = new byte[1024];
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (!entry.isDirectory()) {
-                    while (zipInputStream.read(buffer) != -1) {
+                    //Reader reader = new InputStreamReader(zipInputStream);
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream));
+                    String lineCon = null;
+                    while ((lineCon = bufferedReader.readLine()) != null) {
                         logger.info(entry.getName());
-                        logger.info(new String(buffer, "UTF-8"));
+                        logger.info("行内容:" + lineCon);
                     }
 
                 }
             }
         }
+    }
+
+    public static void loadProper() throws IOException {
+        InputStream in = Main.class.getResourceAsStream("/application.properties");
+        Properties properties = new Properties();
+        properties.load(in);
+        logger.info(properties.getProperty("server.port"));
+
     }
 
 }
