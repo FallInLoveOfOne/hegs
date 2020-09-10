@@ -1,10 +1,11 @@
 package GQJ.home.hegs.love.io;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
@@ -33,24 +34,21 @@ public class NIOMain {
     }
 
     public static void nioRead() throws IOException {
-        FileOutputStream out = new FileOutputStream("C:/Users/dhht/Desktop/test-lishi/nio.txt");
+        FileOutputStream out = new FileOutputStream("C:/Users/dhht/Desktop/test-lishi/nio.sql");
         FileChannel outChannel = out.getChannel();
         CharsetEncoder charsetEncoder = StandardCharsets.UTF_8.newEncoder();
 
-
-        FileInputStream in = new FileInputStream("C:/Users/dhht/Desktop/test-lishi/output.log");
+        File source = new File("C:/Users/dhht/Desktop/test-lishi/composing.SQL");
+        FileInputStream in = new FileInputStream(source);
         FileChannel channel = in.getChannel();
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
         CharsetDecoder charsetDecoder = StandardCharsets.UTF_8.newDecoder();
-        while (channel.read(buffer) > 0) {
-            // 这个clear很关键,不然死循环读第一次
-            //channel.read(buffer);
-            buffer.clear();
-            CharBuffer charBuffer = charsetDecoder.decode(buffer);
-            charBuffer.clear();
-            outChannel.write(charsetEncoder.encode(charBuffer));
+        //MappedByteBuffer byteBuffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+        MappedByteBuffer byteBuffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, source.length());
+        CharBuffer charBuffer = charsetDecoder.decode(byteBuffer);
+        System.out.println("文件内容:" + charBuffer);
+        charBuffer.clear();
+        outChannel.write(charsetEncoder.encode(charBuffer));
 
-        }
         channel.close();
         in.close();
         outChannel.close();
