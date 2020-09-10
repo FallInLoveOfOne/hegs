@@ -67,6 +67,8 @@ public class Main {
 
         loadProper();
 
+        writer();
+
 
     }
 
@@ -136,5 +138,19 @@ public class Main {
         logger.info(properties.getProperty("server.port"));
 
     }
+
+    public static void writer() throws IOException {
+        File file = new File("C:/Users/dhht/Desktop/test-lishi/demo.txt");
+        file.createNewFile();
+        try (Reader reader = new FileReader(new File("C:/Users/dhht/Desktop/test-lishi/output.log"))) {
+            char[] chars = new char[1024];
+            while ((reader.read(chars)) != -1) {
+                try (Writer writer = new FileWriter(file)) {
+                    writer.write(new String(chars));
+                }
+            }
+        }
+    }
+
 
 }
