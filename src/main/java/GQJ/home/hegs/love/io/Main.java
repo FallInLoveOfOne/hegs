@@ -1,6 +1,7 @@
 package GQJ.home.hegs.love.io;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -112,11 +113,11 @@ public class Main {
         }
         try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(tar))) {
             ZipEntry entry;
-            byte[] buffer = new byte[1024];
+            //byte[] buffer = new byte[1024];
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (!entry.isDirectory()) {
                     //Reader reader = new InputStreamReader(zipInputStream);
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream, StandardCharsets.UTF_8));
                     String lineCon = null;
                     while ((lineCon = bufferedReader.readLine()) != null) {
                         logger.info(entry.getName());
