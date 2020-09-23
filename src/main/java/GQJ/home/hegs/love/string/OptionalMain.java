@@ -1,6 +1,7 @@
 package GQJ.home.hegs.love.string;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * @Author: sh
@@ -15,9 +16,20 @@ public class OptionalMain {
         Optional<String> optional = Optional.ofNullable(val);
         System.out.println(optional.orElse("wo"));
         User user = null;
-        user = new User("Jim", "man", 88);
+        //user = new User("Jim", "man", 88);
         Optional<User> userOptional = Optional.ofNullable(user);
         System.out.println(userOptional.orElse(new User()).getSex());
+
+        System.out.println(userOptional.map(u -> u.getName()).orElse("non"));
+        System.out.println(userOptional.map(new Function<User, String>() {
+            @Override
+            public String apply(User user) {
+                return user.getName();
+            }
+        }).orElse("non"));
+
+
+        System.out.println(userOptional.get());
     }
 
     public static class User {
