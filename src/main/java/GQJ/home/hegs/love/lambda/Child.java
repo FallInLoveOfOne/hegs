@@ -39,6 +39,7 @@ public class Child extends Parent implements IChild, ICh {
     public static void main(String[] args) {
         new Child().print().say();
         new Child().same();
+        ICh.staticMe();
         // result
         //GQJ.home.hegs.love.lambda.Child:print()
         //Parent say()GQJ.home.hegs.love.lambda.Child
@@ -72,6 +73,10 @@ interface IChild {
 }
 
 interface ICh {
+
+    static void staticMe(){
+        System.out.println("ICh staticMe()----");
+    }
 
     /**
      * same
