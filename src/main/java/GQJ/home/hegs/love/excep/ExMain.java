@@ -10,6 +10,14 @@ public class ExMain {
 
     public static void main(String[] args) {
         System.out.println(cal());
+        ClassLoader classLoader = ExMain.class.getClassLoader();
+        //jdk9 jdk11下结果
+        //jdk.internal.loader.ClassLoaders$AppClassLoader@2437c6dc
+        //jdk.internal.loader.ClassLoaders$PlatformClassLoader@61a485d2
+        //null
+        System.out.println(classLoader);
+        System.out.println(classLoader.getParent());
+        System.out.println(classLoader.getParent().getParent());
     }
 
     public static int cal() {
