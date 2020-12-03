@@ -77,6 +77,10 @@ Ctrl+o(字母)
 25、包裹代码快捷键(try、if等)
 Ctrl+Alt+T
 
+26、关闭当前文件窗口
+Ctrl+F4
+Ctrl+B(打开)
+
 
 
 
