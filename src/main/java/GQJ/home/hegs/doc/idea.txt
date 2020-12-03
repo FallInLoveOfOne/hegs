@@ -81,6 +81,9 @@ Ctrl+Alt+T
 Ctrl+F4
 Ctrl+B(打开)
 
+27、转到当前类的父类、接口
+Ctrl+u
+
 
 
 
