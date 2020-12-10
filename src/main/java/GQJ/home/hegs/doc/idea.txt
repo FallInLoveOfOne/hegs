@@ -95,6 +95,12 @@ Ctrl+Shift+j
 30、查看当前类的实现类
 Ctrl+Shift+b
 
+31、快速定位括号位置
+Ctrl+Shift+m
+
+32、菜单
+alt+f/e/v/n/c/z/r/b/u/t/s/w/h
+
 
 
 
