@@ -92,6 +92,9 @@ Ctrl+Q
 29、剪切下一行代码拼接到当前行后面
 Ctrl+Shift+j
 
+30、查看当前类的实现类
+Ctrl+Shift+b
+
 
 
 
