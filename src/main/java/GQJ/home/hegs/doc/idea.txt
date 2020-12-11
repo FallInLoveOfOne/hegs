@@ -101,6 +101,11 @@ Ctrl+Shift+m
 32、菜单
 alt+f/e/v/n/c/z/r/b/u/t/s/w/h
 
+33、警告提示
+alter+enter
+
+
+
 
 
 
